@@ -61,7 +61,7 @@ class FG_eval {
         fg[0]+=10*CppAD::pow(vars[a_start+i], 2);
     }
 
-    // smooth the steering angle change
+    // smooth the change
     for (size_t i=0; i<N-2; i++){
         fg[0]+=50*CppAD::pow(vars[delta_start+i + 1]- vars[delta_start+i], 2);
         fg[0]+=10*CppAD::pow(vars[a_start+i+1] - vars[a_start+i], 2);
