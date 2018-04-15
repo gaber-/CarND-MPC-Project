@@ -87,10 +87,14 @@ int main() {
           // j[1] is the data JSON object
           vector<double> ptsx = j[1]["ptsx"];
           vector<double> ptsy = j[1]["ptsy"];
-          double px = j[1]["x"];
-          double py = j[1]["y"];
           double psi = j[1]["psi"];
           double v = j[1]["speed"];
+          double px = j[1]["x"];
+          double py = j[1]["y"];
+
+          // assume delay of 0.1 second, or 100 milliseconds
+          px += v*cos(psi)*0.1;
+          py += v*sin(psi)*0.1;
 
           for (size_t i=0; i<ptsx.size(); i++){
               double s_x = ptsx[i] - px;
@@ -185,7 +189,7 @@ int main() {
           //
           // NOTE: REMEMBER TO SET THIS TO 100 MILLISECONDS BEFORE
           // SUBMITTING.
-          this_thread::sleep_for(chrono::milliseconds(0));
+          this_thread::sleep_for(chrono::milliseconds(100));
           ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
         }
       } else {
